@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
 
 /**
  *
@@ -26,6 +27,7 @@ public class tennis extends Applet implements Runnable, KeyListener{
     boolean zaidimopradzia;
     Graphics gfx;
     Image img;
+    long tStart;
     
     public void init(){
      
@@ -47,7 +49,12 @@ public class tennis extends Applet implements Runnable, KeyListener{
         gfx.setColor(Color.black);
         gfx.fillRect(0, 0, WIDTH, HEIGHT);
         if(b1.getX() < -10 || b1.getX() > 710){
-            
+            gfx.setColor(Color.BLUE);
+            long tEnd = System.currentTimeMillis();
+            long tDelta = tEnd - tStart;
+            double elapsedSeconds = tDelta / 1000.0;
+            String elapsed = String.valueOf(elapsedSeconds);
+            gfx.drawString("Your score: " + elapsed, 400, 300);
             gfx.setColor(Color.red);
             gfx.drawString("Game Over", 350, 250);
         }
@@ -107,6 +114,7 @@ public class tennis extends Applet implements Runnable, KeyListener{
         }
         else if(e.getKeyCode() == KeyEvent.VK_ENTER){
          zaidimopradzia = true;   
+         tStart = System.currentTimeMillis();
         }
     }
 
